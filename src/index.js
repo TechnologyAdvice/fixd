@@ -7,30 +7,53 @@ const fixd = {
   fixtures: {},
   
   /**
-   * Attempts to load (or returns) plugin
+   * Attempts to load plugin by path/name
+   * @param {String} plugin The path or name of the plugin
+   * @returns {Object}
+   */
+  loadPlugin: (plugin) => {
+    try {
+      // Try to load a built-in plugin
+      return require(path.resolve(__dirname, `./plugins/${plugin}.js`))
+    } catch (e) {
+      try {
+        // Try to load plugin from path
+        return require(plugin)
+      } catch (e) {
+        throw new Error(`Could not load plugin ${plugin}`)
+      }
+    }
+  },
+  
+  /**
+   * Validates plugin
+   * @param {Object} plugin The plugin to validate
+   * @returns {Boolean}
+   */
+  validatePlugin: (plugin) => {
+    const add = plugin.add && typeof plugin.add === 'function'
+    const create = plugin.create && typeof plugin.create === 'function'
+    return (add && create)
+  },
+  
+  /**
+   * Attempts to load and validate plugin
    * @param {Object|String} plugin The plugin object, name, or path
    * @returns {Object}
    */
   getPlugin: (plugin) => {
-    if (typeof plugin === 'string') {
-      try {
-        const pluginPath = path.indexOf('/') >= 0 
-          ? plugin // Try user-supplied path
-          : path.resolve(__dirname, `./plugins/${plugin}.js`) // Use built-in
-        return require(pluginPath)
-      } catch (e) {
-        throw new Error(`Could not load plugin ${plugin}`)
-      }
-    } else if (plugin.add && plugin.create) {
-      return plugin
-    } else {
-      throw new Error('Invalid plugin supplied, please see documentation')
-    }
-  }
+    let plug = typeof plugin === 'string'
+      ? fixd.loadPlugin(plugin)
+      : plugin
+    // If not a valid plugin, throw
+    if (!fixd.validatePlugin(plug)) throw new Error('Invalid plugin, please see documentation')
+    // Return valid plugin
+    return plug
+  },
   
   /**
    * Instructs fixd to use plugin, creates addPLUGIN method
-   * @param {Object|String} plugin The plugin name or object to apply
+   * @param {Object|String} plugin The plugin name, path, or object to apply
    */
   use: function (plugin) {
     const plug = fixd.getPlugin(plugin)
