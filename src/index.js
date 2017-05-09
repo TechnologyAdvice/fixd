@@ -6,7 +6,7 @@ const fixd = {
    * @property {Object} fixtures
    */
   fixtures: {},
-
+  
   /**
    * Instructs fixd to use plugin, creates addPLUGIN method
    * @param {Object} plugin The plugin object to apply
@@ -31,6 +31,7 @@ const fixd = {
       throw new Error(`Could not load plugin ${plugin}`)
     }
   },
+  
   /**
    * Creates an instance of the fixture using the original data fixture and passing
    * any plugin-specific args to the `create` method for the plugin

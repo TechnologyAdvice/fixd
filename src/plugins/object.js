@@ -8,6 +8,7 @@ module.exports = {
     if (typeof object !== 'object') throw new Error(`Must supply a valid object`)
     return object
   },
+  
   /**
    * Creates a new instance of the fixture with any required modifications
    * @param {Object} data The original fixture data
