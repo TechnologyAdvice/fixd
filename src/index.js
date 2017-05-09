@@ -17,8 +17,8 @@ const fixd = {
       fs.statSync(pluginPath)
       fixd[`add${plugin.charAt(0).toUpperCase() + plugin.slice(1)}`] = (name, ...args) => {
         // Validations
-        if (!name || typeof name !== 'string') throw new Error('Name must be a string')
-        if (fixd.fixtures[name]) throw new Error('Fixture already exists with that name')
+        if (!name || typeof name !== 'string') throw new Error('Must supply a (string) name value for the fixture')
+        if (fixd.fixtures[name]) throw new Error(`Fixture ${name} already exists, must be unique`)
 
         // Setup fixture
         const plug = require(pluginPath)
@@ -40,7 +40,7 @@ const fixd = {
    * @returns {*}
    */
   create: (name, ...args) => {
-    if (!fixd.fixtures[name]) throw new Error('No fixture found, please add first')
+    if (!fixd.fixtures[name]) throw new Error(`Fixture ${name} was not found, please add before creating a new instance`)
     return fixd.fixtures[name].create(fixd.fixtures[name].data, ...args)
   }
 }
