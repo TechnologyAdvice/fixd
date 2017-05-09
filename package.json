@@ -1,0 +1,51 @@
+{
+  "name": "fixd",
+  "version": "0.0.1",
+  "description": "Test fixture utility",
+  "main": "fixd.js",
+  "scripts": {
+    "test": "mocha",
+    "test:watch": "nodemon --exec \"mocha || exit 1\"",
+    "cover": "istanbul cover _mocha",
+    "lint": "standard --fix --verbose",
+    "push:release": "git push origin master && git push --tags",
+    "release:patch": "npm run lint && npm test && npm version patch && npm run push:release && npm publish",
+    "release:minor": "npm run lint && npm test && npm version minor && npm run push:release && npm publish",
+    "release:major": "npm run lint && npm test && npm version major && npm run push:release && npm publish"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/TechnologyAdvice/fixd.git"
+  },
+  "keywords": [
+    "test",
+    "fixture"
+  ],
+  "author": "TechnologyAdvice",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TechnologyAdvice/fixd/issues"
+  },
+  "homepage": "https://github.com/TechnologyAdvice/fixd#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "dirty-chai": "^1.2.2",
+    "istanbul": "^0.4.5",
+    "mocha": "^3.3.0",
+    "standard": "^10.0.2"
+  },
+  "standard": {
+    "ignore": [
+      "coverage"
+    ],
+    "globals": [
+      "describe",
+      "before",
+      "beforeEach",
+      "after",
+      "afterEach",
+      "it",
+      "expect"
+    ]
+  }
+}
