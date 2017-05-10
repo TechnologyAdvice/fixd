@@ -92,7 +92,7 @@ Adds ability to create JSON fixtures:
 ```javascript
 fixd.use('json')
 
-fixd.addJson('fizz', { "buzz": true })
+fixd.addJSON('fizz', { "buzz": true })
 
 const fizzFixture = fixd.create('fizz') // -> { "buzz": true }
 ```
@@ -102,3 +102,7 @@ On create, an optional (`Object`) argument can be passed to alter the original f
 ```javascript
 const fizzFixture = fixd.create('fizz', { zap: 'bang' }) // -> { "buzz": true, "zap": "bang" }
 ```
+
+## License
+
+Fixd is developed and maintained by TechnologyAdvice and released under the ISC license
