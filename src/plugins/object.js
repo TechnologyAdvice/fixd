@@ -1,5 +1,9 @@
 module.exports = {
   /**
+   * @property {String} plugin name
+   */
+  name: 'object',
+  /**
    * Adds an object as a fixture
    * @param {Object} object The object to set as default fixture
    * @returns {Object}

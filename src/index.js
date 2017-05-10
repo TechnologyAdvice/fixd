@@ -31,9 +31,10 @@ const fixd = {
    * @returns {Boolean}
    */
   validatePlugin: (plugin) => {
+    const name = plugin.name && typeof plugin.name === 'string'
     const add = plugin.add && typeof plugin.add === 'function'
     const create = plugin.create && typeof plugin.create === 'function'
-    return (add && create)
+    return (name && add && create)
   },
   
   /**
@@ -57,7 +58,7 @@ const fixd = {
    */
   use: function (plugin) {
     const plug = fixd.getPlugin(plugin)
-    fixd[`add${plugin.charAt(0).toUpperCase() + plugin.slice(1)}`] = (name, ...args) => {
+    fixd[`add${plug.name.charAt(0).toUpperCase() + plug.slice.slice(1)}`] = (name, ...args) => {
       // Validations
       if (!name || typeof name !== 'string') throw new Error('Must supply a (string) name value for the fixture')
       if (fixd.fixtures[name]) throw new Error(`Fixture ${name} already exists, must be unique`)
