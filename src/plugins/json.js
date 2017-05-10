@@ -2,7 +2,7 @@ module.exports = {
   /**
    * @property {String} plugin name
    */
-  name: 'json',
+  name: 'JSON',
   /**
    * Adds a JSON object as a fixture
    * @param {String} json The JSON object to set as default fixture

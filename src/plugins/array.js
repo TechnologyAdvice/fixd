@@ -2,7 +2,7 @@ module.exports = {
   /**
    * @property {String} plugin name
    */
-  name: 'array',
+  name: 'Array',
   /**
    * Adds an array as a fixture
    * @param {Array} array The array to set as default fixture
