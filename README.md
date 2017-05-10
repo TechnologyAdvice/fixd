@@ -1,6 +1,6 @@
 # Fixd
 
-A Utility for Fixtures
+Fixd is a JavaScript utility for creating better fixtures. Fixtures created with Fixd are stored in the library and, when needed, are created as non-referenced instances to prevent side effects in testing data.
 
 ## Installation
 
@@ -12,14 +12,17 @@ A Utility for Fixtures
 // Require the library
 const fixd = require('fixd')
 
-// Tell fixed which plugins to use
+// Tell Fixd which plugin(s) to use
 fixd.use('object')
 
 // Add a fixture
 fixd.addObject('foo', { foo: 'bar' })
 
 // Create a new instance of the fixture
-const fooFixture = fixd.create('foo')
+const fooOne = fixd.create('foo') // -> { foo: 'bar' }
+
+// Create a different instance with alterations to original object
+const fooTwo = fixd.create('foo', { foo: 'baz' }) // -> { foo: 'baz' }
 ```
 
 ## Plugins
