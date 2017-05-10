@@ -5,7 +5,6 @@ const fixd = {
    * @property {Object} fixtures
    */
   fixtures: {},
-  
   /**
    * Attempts to load plugin by path/name
    * @param {String} plugin The path or name of the plugin
@@ -24,7 +23,6 @@ const fixd = {
       }
     }
   },
-  
   /**
    * Validates plugin
    * @param {Object} plugin The plugin to validate
@@ -36,7 +34,6 @@ const fixd = {
     const create = plugin.create && typeof plugin.create === 'function'
     return (name && add && create)
   },
-  
   /**
    * Attempts to load and validate plugin
    * @param {Object|String} plugin The plugin object, name, or path
@@ -51,7 +48,6 @@ const fixd = {
     // Return valid plugin
     return plug
   },
-  
   /**
    * Instructs fixd to use plugin, creates addPLUGIN method
    * @param {Object|String} plugin The plugin name, path, or object to apply
@@ -69,7 +65,6 @@ const fixd = {
       }
     }
   },
-  
   /**
    * Creates an instance of the fixture using the original data fixture and passing
    * any plugin-specific args to the `create` method for the plugin

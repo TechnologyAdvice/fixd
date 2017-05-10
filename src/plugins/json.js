@@ -15,7 +15,7 @@ module.exports = {
       throw new Error(`Must supply a valid JSON object`)
     }
   },
-  
+
   /**
    * Creates a new instance of the fixture with any required modifications
    * @param {Object} data The original fixture data
