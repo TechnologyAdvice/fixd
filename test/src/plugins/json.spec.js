@@ -20,7 +20,7 @@ describe('plugin/json', () => {
       const original = { foo: 'bar' }
       const actual = json.create(original, { foo: 'biz' })
       expect(original).to.deep.equal({ foo: 'bar' })
-      expect(actual).to.equal(JSON.stringify({ 'foo': 'biz' }))
+      expect(actual).to.equal(JSON.stringify({ foo: 'biz' }))
     })
     it('throws if mods argument is not an json', () => {
       expect(() => json.create({ foo: 'bar' }, 'biz')).to.throw(/Must supply a valid object/)
