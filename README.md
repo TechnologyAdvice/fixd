@@ -82,10 +82,13 @@ fixd.addArray('bar', [ 'bin', 'baz', 'quz' ])
 const barFixture = fixd.create('bar') // -> [ 'bin', 'baz', 'quz' ]
 ```
 
-On `create`, an optional (`Array`) argument can be passed to concat to the original fixture:
+On `create`, an optional (`Object`) argument can be passed with params `add` and `remove` to modify the original fixture:
 
 ```javascript
-const barFixture = fixd.create('bar', [ 'zap' ]) // -> [ 'bin', 'baz', 'quz', 'zap' ]
+const barFixture = fixd.create('bar', { 
+  add: [ 'zap', 'zip' ], 
+  remove: [ 'quz' ] 
+}) // -> [ 'bin', 'baz', 'zap', 'zip' ]
 ```
 
 ### JSON

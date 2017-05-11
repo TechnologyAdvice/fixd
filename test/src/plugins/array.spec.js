@@ -18,12 +18,21 @@ describe('plugins/array', () => {
   describe('create', () => {
     it('returns a new instance of the array with mods applied', () => {
       const original = [ 'foo', 'bar' ]
-      const actual = array.create(original, [ 'baz' ])
+      const actual = array.create(original, {
+        add: [ 'baz' ],
+        remove: [ 'bar' ]
+      })
       expect(original).to.deep.equal([ 'foo', 'bar' ])
-      expect(actual).to.deep.equal([ 'foo', 'bar', 'baz' ])
+      expect(actual).to.deep.equal([ 'foo', 'baz' ])
     })
-    it('throws if mods argument is not an array', () => {
-      expect(() => array.create([ 'foo' ], 'bar')).to.throw(/Must supply a valid array/)
+    it('throws if mods argument is not an object', () => {
+      expect(() => array.create([ 'foo' ], 'bar')).to.throw(/Must supply a valid object/)
+    })
+    it('throws if mods.add argument is not an array', () => {
+      expect(() => array.create([ 'foo' ], { add: 'foo' })).to.throw(/Add property must be an array/)
+    })
+    it('throws if mods.remove argument is not an array', () => {
+      expect(() => array.create([ 'foo' ], { remove: 'foo' })).to.throw(/Remove property must be an array/)
     })
   })
 })

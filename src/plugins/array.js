@@ -1,3 +1,5 @@
+const { without } = require('halcyon')
+
 module.exports = {
   /**
    * @property {String} plugin name
@@ -16,11 +18,19 @@ module.exports = {
   /**
    * Creates a new instance of the fixture with any required modifications
    * @param {Array} data The original fixture data
-   * @param {Array} mods Any modification for this specific instance
+   * @param {Object} mods Any modification for this specific instance
+   * @param {Array} mods.add Array of additions to concat
+   * @param {Array} mods.remove Array of items to remove
    * @returns {Array}
    */
-  create: (data, mods = []) => {
-    if (!Array.isArray(mods)) throw new Error(`Must supply a valid array`)
-    return mods.length ? [ ...data, ...mods ] : [ ...data ]
+  create: (data, mods = { add: [], remove: [] }) => {
+    // Validate mods
+    if (typeof mods !== 'object') throw new Error(`Must supply a valid object`)
+    if (mods.add && !Array.isArray(mods.add)) throw new Error(`Add property must be an array`)
+    if (mods.remove && !Array.isArray(mods.remove)) throw new Error(`Remove property must be an array`)
+    mods.add = mods.add || []
+    mods.remove = mods.remove || []
+    // Apply modifications and return
+    return without(mods.remove, [ ...data ]).concat([ ...mods.add ])
   }
 }

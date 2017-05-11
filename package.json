@@ -50,5 +50,8 @@
       "expect",
       "sandbox"
     ]
+  },
+  "dependencies": {
+    "halcyon": "^0.19.1"
   }
 }
