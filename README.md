@@ -15,9 +15,6 @@ Fixd is a JavaScript utility for creating better fixtures. Fixtures created with
 // Require the library
 const fixd = require('fixd')
 
-// Tell Fixd which plugin(s) to use
-fixd.use('object')
-
 // Add a fixture
 fixd.addObject('foo', { foo: 'bar' })
 
@@ -31,11 +28,11 @@ const fooTwo = fixd.create('foo', { foo: 'baz' }) // -> { foo: 'baz' }
 ## Plugins
 
 Fixd uses plugins to allow the developer to specify which type of fixtures to 
-use. At initialization you must specify which plugins you wish to utilize. From 
-the example above:
+use. At initialization you must specify which plugins you wish to utilize:
 
 ```javascript
-fixd.use('object')
+// 
+fixd.use(<PLUGIN>)
 ```
 
 The `use` method will use a built-in (single string), a path to a custom plugin, 
@@ -50,7 +47,7 @@ Custom plugins must be an object with property `name` and two methods: `add` and
 
 ## Built-In Plugins
 
-Fixd comes with the following built-in fixture plugins:
+Fixd comes with the following built-in fixture plugins which are loaded at initialization of the library.
 
 ### Object
 
