@@ -1,6 +1,6 @@
 {
   "name": "fixd",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Test fixture utility",
   "main": "fixd.js",
   "scripts": {
