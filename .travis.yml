@@ -1,0 +1,21 @@
+sudo: required
+  
+language: node_js
+node_js:
+  - "6"
+  
+notifications:
+  email:
+    on_success: never
+    on_failure: never
+  
+install:
+  - yarn
+  
+script:
+  - npm run lint
+  - npm test
+  
+after_success:
+  - npm i codecov -g
+  - codecov -f coverage/lcov.info
