@@ -12,7 +12,7 @@ module.exports = {
     try {
       return JSON.parse(json)
     } catch (e) {
-      throw new Error(`Must supply a valid JSON object`)
+      throw new Error(`Must supply valid JSON`)
     }
   },
 
