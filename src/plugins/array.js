@@ -21,8 +21,6 @@ module.exports = {
    */
   create: (data, mods = []) => {
     if (!Array.isArray(mods)) throw new Error(`Must supply a valid array`)
-    const arr = [ ...data ]
-    if (mods.length) return arr.concat(mods)
-    return arr
+    return mods.length ? [ ...data, ...mods] : [ ...data ]
   }
 }

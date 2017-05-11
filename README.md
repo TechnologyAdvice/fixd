@@ -64,7 +64,7 @@ const fooFixture = fixd.create('foo') // -> { foo: 'bar' }
 On `create`, an optional (`Object`) argument can be passed to alter the original fixture:
 
 ```javascript
-const fooFixture = fix.create('foo', { foo: 'bam' }) // -> { foo: 'bam' }
+const fooFixture = fixd.create('foo', { foo: 'bam' }) // -> { foo: 'bam' }
 ```
 
 ### Array

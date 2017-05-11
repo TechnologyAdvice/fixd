@@ -24,7 +24,7 @@ const fixd = {
     }
   },
   /**
-   * Validates plugin
+   * Ensures that the plugin object contains the required properties and types
    * @param {Object} plugin The plugin to validate
    * @returns {Boolean}
    */
@@ -35,12 +35,12 @@ const fixd = {
     return (name && add && create)
   },
   /**
-   * Attempts to load and validate plugin
+   * Determines type of plugin call, loads and returns plugin
    * @param {Object|String} plugin The plugin object, name, or path
    * @returns {Object}
    */
   getPlugin: (plugin) => {
-    let plug = typeof plugin === 'string'
+    const plug = typeof plugin === 'string'
       ? fixd.loadPlugin(plugin)
       : plugin
     // If not a valid plugin, throw
@@ -54,7 +54,7 @@ const fixd = {
    */
   use: function (plugin) {
     const plug = fixd.getPlugin(plugin)
-    fixd[`add${plug.name.charAt(0).toUpperCase() + plug.slice.slice(1)}`] = (name, ...args) => {
+    fixd[`add${plug.name}`] = (name, ...args) => {
       // Validations
       if (!name || typeof name !== 'string') throw new Error('Must supply a (string) name value for the fixture')
       if (fixd.fixtures[name]) throw new Error(`Fixture ${name} already exists, must be unique`)
