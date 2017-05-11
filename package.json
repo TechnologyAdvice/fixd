@@ -47,7 +47,8 @@
       "after",
       "afterEach",
       "it",
-      "expect"
+      "expect",
+      "sandbox"
     ]
   }
 }
