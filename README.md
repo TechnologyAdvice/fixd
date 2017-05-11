@@ -31,7 +31,6 @@ Fixd uses plugins to allow the developer to specify which type of fixtures to
 use. At initialization you must specify which plugins you wish to utilize:
 
 ```javascript
-// 
 fixd.use(<PLUGIN>)
 ```
 
@@ -54,8 +53,6 @@ Fixd comes with the following built-in fixture plugins which are loaded at initi
 Adds ability to create object fixtures:
 
 ```javascript
-fixd.use('object')
-
 fixd.addObject('foo', { foo: 'bar' })
 
 const fooFixture = fixd.create('foo') // -> { foo: 'bar' }
@@ -72,8 +69,6 @@ const fooFixture = fixd.create('foo', { foo: 'bam' }) // -> { foo: 'bam' }
 Adds ability to create array fixtures:
 
 ```javascript
-fixd.use('array')
-
 fixd.addArray('bar', [ 'bin', 'baz', 'quz' ])
 
 const barFixture = fixd.create('bar') // -> [ 'bin', 'baz', 'quz' ]
@@ -93,8 +88,6 @@ const barFixture = fixd.create('bar', {
 Adds ability to create JSON fixtures:
 
 ```javascript
-fixd.use('json')
-
 fixd.addJSON('fizz', { "buzz": true })
 
 const fizzFixture = fixd.create('fizz') // -> { "buzz": true }
