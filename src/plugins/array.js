@@ -21,6 +21,6 @@ module.exports = {
    */
   create: (data, mods = []) => {
     if (!Array.isArray(mods)) throw new Error(`Must supply a valid array`)
-    return mods.length ? [ ...data, ...mods] : [ ...data ]
+    return mods.length ? [ ...data, ...mods ] : [ ...data ]
   }
 }
