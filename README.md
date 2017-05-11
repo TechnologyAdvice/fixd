@@ -1,3 +1,6 @@
+[![Travis](https://img.shields.io/travis/TechnologyAdvice/fixd.svg)](https://travis-ci.org/TechnologyAdvice/fixd)
+[![Codecov](https://img.shields.io/codecov/c/github/TechnologyAdvice/fixd.svg)](https://codecov.io/gh/TechnologyAdvice/fixd)
+
 # Fixd
 
 Fixd is a JavaScript utility for creating better fixtures. Fixtures created with Fixd are stored in the library and, when needed, are created as non-referenced instances to prevent side effects in testing data.
