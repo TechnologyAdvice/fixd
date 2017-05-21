@@ -1,4 +1,4 @@
-const deepAssign = require('deep-assign')
+const merge = require('lodash.merge')
 
 module.exports = {
   /**
@@ -23,6 +23,6 @@ module.exports = {
    */
   create: (data, mods = {}) => {
     if (typeof mods !== 'object') throw new Error(`Must supply a valid object`)
-    return deepAssign({}, data, mods)
+    return merge({}, data, mods)
   }
 }

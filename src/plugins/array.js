@@ -1,4 +1,4 @@
-const deepAssign = require('deep-assign')
+const merge = require('lodash.merge')
 const { without } = require('halcyon')
 
 module.exports = {
@@ -32,7 +32,7 @@ module.exports = {
     mods.add = mods.add || []
     mods.remove = mods.remove || []
     // Deep assign nested objects
-    const assign = (arr) => arr.map((x) => typeof x === 'object' ? deepAssign({}, x) : x)
+    const assign = (arr) => arr.map((x) => typeof x === 'object' ? merge({}, x) : x)
     // Apply modifications and return
     return without(mods.remove, [ ...assign(data) ]).concat([ ...assign(mods.add) ])
   }
