@@ -22,8 +22,8 @@ describe('plugins/array', () => {
         add: [ 'baz' ],
         remove: [ 'bar' ]
       })
-      expect(original).to.deep.equal([ 'foo', { fizz: 'buzz' }, 'bar' ])
-      expect(actual).to.deep.equal([ 'foo', { fizz: 'buzz' }, 'baz' ])
+      expect(original[1]).to.not.equal(actual[1])
+      expect(original[1]).to.deep.equal(actual[1])
     })
     it('throws if mods argument is not an object', () => {
       expect(() => array.create([ 'foo' ], 'bar')).to.throw(/Must supply a valid object/)
