@@ -1,3 +1,4 @@
+const deepAssign = require('deep-assign')
 const { without } = require('halcyon')
 
 module.exports = {
@@ -30,6 +31,9 @@ module.exports = {
     if (mods.remove && !Array.isArray(mods.remove)) throw new Error(`Remove property must be an array`)
     mods.add = mods.add || []
     mods.remove = mods.remove || []
+    // Deep assign nested objects
+    data = data.map((x) => typeof x === 'object' ? deepAssign({}, x) : x)
+    mods.add = mods.add.map(x => typeof x === 'object' ? deepAssign({}, x): x)
     // Apply modifications and return
     return without(mods.remove, [ ...data ]).concat([ ...mods.add ])
   }

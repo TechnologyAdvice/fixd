@@ -52,6 +52,7 @@
     ]
   },
   "dependencies": {
+    "deep-assign": "^2.0.0",
     "halcyon": "^0.19.1"
   }
 }
