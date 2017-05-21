@@ -17,13 +17,13 @@ describe('plugins/array', () => {
   })
   describe('create', () => {
     it('returns a new instance of the array with mods applied', () => {
-      const original = [ 'foo', 'bar' ]
+      const original = [ 'foo', { fizz: 'buzz' }, 'bar' ]
       const actual = array.create(original, {
         add: [ 'baz' ],
         remove: [ 'bar' ]
       })
-      expect(original).to.deep.equal([ 'foo', 'bar' ])
-      expect(actual).to.deep.equal([ 'foo', 'baz' ])
+      expect(original).to.deep.equal([ 'foo', { fizz: 'buzz' }, 'bar' ])
+      expect(actual).to.deep.equal([ 'foo', { fizz: 'buzz' }, 'baz' ])
     })
     it('throws if mods argument is not an object', () => {
       expect(() => array.create([ 'foo' ], 'bar')).to.throw(/Must supply a valid object/)

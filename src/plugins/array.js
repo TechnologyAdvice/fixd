@@ -32,9 +32,8 @@ module.exports = {
     mods.add = mods.add || []
     mods.remove = mods.remove || []
     // Deep assign nested objects
-    data = data.map((x) => typeof x === 'object' ? deepAssign({}, x) : x)
-    mods.add = mods.add.map(x => typeof x === 'object' ? deepAssign({}, x): x)
+    const assign = (arr) => arr.map((x) => typeof x === 'object' ? deepAssign({}, x) : x)
     // Apply modifications and return
-    return without(mods.remove, [ ...data ]).concat([ ...mods.add ])
+    return without(mods.remove, [ ...assign(data) ]).concat([ ...assign(mods.add) ])
   }
 }
