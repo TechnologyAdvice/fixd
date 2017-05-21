@@ -21,6 +21,7 @@ describe('plugin/object', () => {
       const actual = object.create(original, { foo: 'biz' })
       expect(original).to.deep.equal({ foo: 'bar' })
       expect(actual).to.deep.equal({ foo: 'biz' })
+      expect(actual).to.not.equal(original)
     })
     it('throws if mods argument is not an object', () => {
       expect(() => object.create({ foo: 'bar' }, 'biz')).to.throw(/Must supply a valid object/)

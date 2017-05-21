@@ -1,3 +1,5 @@
+const merge = require('lodash.merge')
+
 module.exports = {
   /**
    * @property {String} plugin name
@@ -24,6 +26,6 @@ module.exports = {
    */
   create: (data, mods = {}) => {
     if (typeof mods !== 'object') throw new Error(`Must supply a valid object`)
-    return JSON.stringify(Object.assign({}, data, mods))
+    return JSON.stringify(merge({}, data, mods))
   }
 }

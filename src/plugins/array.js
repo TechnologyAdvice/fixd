@@ -1,3 +1,4 @@
+const merge = require('lodash.merge')
 const { without } = require('halcyon')
 
 module.exports = {
@@ -30,7 +31,9 @@ module.exports = {
     if (mods.remove && !Array.isArray(mods.remove)) throw new Error(`Remove property must be an array`)
     mods.add = mods.add || []
     mods.remove = mods.remove || []
+    // Deep assign nested objects
+    const assign = (arr) => arr.map((x) => typeof x === 'object' ? merge({}, x) : x)
     // Apply modifications and return
-    return without(mods.remove, [ ...data ]).concat([ ...mods.add ])
+    return without(mods.remove, [ ...assign(data) ]).concat([ ...assign(mods.add) ])
   }
 }
