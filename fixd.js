@@ -20,7 +20,7 @@ const fixd = {
    * @param {Function} modifier A function to modify the fixture
    */
   mutate: (name, modifier) => {
-    if (!modifier || typeof modifier !== 'function') {
+    if (typeof modifier !== 'function') {
       throw new Error('Modifier must be a function')
     }
     return Object.freeze(modifier(merge({}, fixd[name])))
