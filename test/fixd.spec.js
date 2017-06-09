@@ -25,7 +25,7 @@ describe('fixd', () => {
     it('returns the value of the fixture if no modifier is supplied', () => {
       const result = fixd.create('bar')
       expect(result).to.deep.equal({ bin: 'baz' })
-      expect(Object.isFrozen(result)).to.be.true
+      expect(Object.isFrozen(result)).to.be.true()
     })
     it('throws an error if attempting to pass a non-function modifier', () => {
       expect(() => fixd.create('bar', 'bin')).to.throw(/Modifier must be a function/)
