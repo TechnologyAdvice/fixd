@@ -18,18 +18,20 @@ describe('fixd', () => {
       expect(Object.isFrozen(fixd.foo)).to.be.true()
     })
   })
-  describe('mutate', () => {
+  describe('create', () => {
     before(() => {
       fixd.add('bar', { bin: 'baz' })
     })
-    it('throws an error if attempting to mutate without a modifier', () => {
-      expect(() => fixd.mutate('bar')).to.throw(/Modifier must be a function/)
+    it('returns the value of the fixture if no modifier is supplied', () => {
+      const result = fixd.create('bar')
+      expect(result).to.deep.equal({ bin: 'baz' })
+      expect(Object.isFrozen(result)).to.be.true
     })
     it('throws an error if attempting to pass a non-function modifier', () => {
-      expect(() => fixd.mutate('bar', 'bin')).to.throw(/Modifier must be a function/)
+      expect(() => fixd.create('bar', 'bin')).to.throw(/Modifier must be a function/)
     })
-    it('mutates an object and returns a frozen fixture', () => {
-      const result = fixd.mutate('bar', (obj) => {
+    it('creates an object and returns a frozen fixture', () => {
+      const result = fixd.create('bar', (obj) => {
         obj.bin = 'biz'
         return obj
       })

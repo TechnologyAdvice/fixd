@@ -9,18 +9,20 @@ const fixd = {
    * @param {*} value The fixture value
    */
   add: (name, val) => {
-    if (Object.keys(fixd).indexOf(name) >= 0) {
+    if (fixd[name]) {
       throw new Error(`Cannot add fixture to already reserved namespace '${name}'.`)
     }
     fixd[name] = freeze(val)
   },
   /**
-   * Allows mutation of already existing fixture by providing name of fixture and
-   * modifier method
+   * Returns a fixture and allows for (option) modification
    * @param {String} name The namespace of the fixture to mutate
-   * @param {Function} modifier A function to modify the fixture
+   * @param {Function} [modifier] A function to modify the fixture
    */
-  mutate: (name, modifier) => {
+  create: (name, modifier) => {
+    if (!modifier) {
+      return fixd[name]
+    }
     if (typeof modifier !== 'function') {
       throw new Error('Modifier must be a function')
     }
