@@ -1,5 +1,6 @@
 'use strict'
 const merge = require('lodash.merge')
+const freeze = require('deep-freeze')
 
 const fixd = {
   /**
@@ -11,7 +12,7 @@ const fixd = {
     if (Object.keys(fixd).indexOf(name) >= 0) {
       throw new Error(`Cannot add fixture to already reserved namespace '${name}'.`)
     }
-    fixd[name] = Object.freeze(val)
+    fixd[name] = freeze(val)
   },
   /**
    * Allows mutation of already existing fixture by providing name of fixture and
@@ -23,7 +24,7 @@ const fixd = {
     if (typeof modifier !== 'function') {
       throw new Error('Modifier must be a function')
     }
-    return Object.freeze(modifier(merge({}, fixd[name])))
+    return freeze(modifier(merge({}, fixd[name])))
   }
 }
 
