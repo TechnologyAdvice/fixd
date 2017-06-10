@@ -50,7 +50,7 @@ describe('fixd', () => {
       expect(fixd.testArray).to.be.an('array')
     })
     it('mutates and returns multiple types', () => {
-      expect(fixd.create('testObject', (obj) => { 
+      expect(fixd.create('testObject', (obj) => {
         obj.foo = 'baz'
         return obj
       })).to.deep.equal({ foo: 'baz' })
