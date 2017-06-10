@@ -39,16 +39,17 @@ const fixd = {
     if (typeof modifier !== 'function') {
       throw new Error('Modifier must be a function')
     }
-    return fixd.freeze(modifier(merge(Array.isArray(fixd[name]) ? [] : {}, fixd[name])))
+    return fixd.freeze(modifier(merge(Array.isArray(fixd[name].$fixdVal) ? [] : {}, fixd[name].$fixdVal)))
   }
 }
 
-const handler = {
+module.exports = new Proxy(fixd, {
   get: function(target, name) {
     if (typeof name === 'symbol') return target
     if (['freeze', 'add', 'create'].indexOf(name) >= 0) return target[name]
     return target[name].$fixdVal
+  },
+  set: (obj, prop) => {
+    throw new TypeError('Fixd objects are not extensible')
   }
-}
-
-module.exports = new Proxy(fixd, handler)
+})
