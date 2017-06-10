@@ -40,14 +40,20 @@ describe('fixd', () => {
     before(() => {
       fixd.add('testObject', { foo: 'bar' })
       fixd.add('testArray', [ 'foo', 'bar' ])
+      fixd.add('testString', 'foo')
+      fixd.add('testNumber', 42)
     })
     after(() => {
       delete fixd.testObject
       delete fixd.testArray
+      delete fixd.testString
+      delete fixd.testNumber
     })
     it('adds and retrieves multiple types', () => {
       expect(fixd.testObject).to.be.an('object')
       expect(fixd.testArray).to.be.an('array')
+      expect(fixd.testString).to.be.a('string')
+      expect(fixd.testNumber).to.be.a('number')
     })
     it('mutates and returns multiple types', () => {
       expect(fixd.create('testObject', (obj) => {
@@ -58,6 +64,12 @@ describe('fixd', () => {
         arr[0] = 'fizz'
         return arr
       })).to.deep.equal([ 'fizz', 'bar' ])
+      expect(fixd.create('testString', () => {
+        return 'bar'
+      })).to.equal('bar')
+      expect(fixd.create('testNumber', () => {
+        return 43
+      })).to.equal(43)
     })
     it('throws an error if a mutation is attempted', () => {
       expect(() => {
@@ -66,6 +78,18 @@ describe('fixd', () => {
       expect(() => {
         fixd.testArray[0] = 'baz'
       }).to.throw(/Cannot assign to read only property/)
+      expect(() => {
+        fixd.testString = 'bar'
+      }).to.throw(/Fixd properties are not extensible/)
+      expect(() => {
+        fixd.testNumber = 43
+      }).to.throw(/Fixd properties are not extensible/)
+    })
+    it('returns the fixd object when called', () => {
+      expect(fixd).to.be.an('object')
+    })
+    it('returns methods of the fixd object when called', () => {
+      expect(fixd.freeze).to.be.a('function')
     })
   })
 })
