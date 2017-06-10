@@ -28,7 +28,7 @@ const fixd = {
     if (fixd[name]) {
       throw new Error(`Cannot add fixture to already reserved namespace '${name}'.`)
     }
-    fixd[name] = fixd.freeze(val)
+    fixd[name] = fixd.freeze({ $fixdVal: val })
   },
   /**
    * Returns a fixture and allows for (option) modification
@@ -43,4 +43,12 @@ const fixd = {
   }
 }
 
-module.exports = fixd
+const handler = {
+  get: function(target, name) {
+    if (typeof name === 'symbol') return target
+    if (['freeze', 'add', 'create'].indexOf(name) >= 0) return target[name]
+    return target[name].$fixdVal
+  }
+}
+
+module.exports = new Proxy(fixd, handler)
