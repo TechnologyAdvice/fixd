@@ -3,7 +3,7 @@
 
 # Fixd
 
-Fixd is a JavaScript utility for creating better fixtures. Fixtures created with Fixd are stored in the library and, when needed, are created as non-referenced, frozen instances to prevent side effects in testing data.
+Fixd is a JavaScript library for creating reference-free, immutable/frozen objects. It supports immutability on all native types, including deeply nested objects and arrays.
 
 ## Installation
 
