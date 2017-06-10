@@ -1,10 +1,9 @@
-// Setup
+'use strict'
 const chai = require('chai')
 const dirtyChai = require('dirty-chai')
 const expect = chai.expect
 chai.use(dirtyChai)
 
-// Source
 const fixd = require('../fixd')
 
 describe('fixd', () => {
@@ -13,8 +12,8 @@ describe('fixd', () => {
       expect(() => fixd.add('add', {})).to.throw(/Cannot add fixture to already reserved namespace 'add'/)
     })
     it('adds a frozen fixture to the library', () => {
-      fixd.add('foo', { fizz: 'buzz' })
-      expect(fixd.foo).to.deep.equal({ fizz: 'buzz' })
+      fixd.add('foo', { fizz: 'buzz', baz: { quz: 'baz' } })
+      expect(fixd.foo).to.deep.equal({ fizz: 'buzz', baz: { quz: 'baz' } })
       expect(Object.isFrozen(fixd.foo)).to.be.true()
     })
   })
@@ -35,6 +34,38 @@ describe('fixd', () => {
       })
       expect(result).to.deep.equal({ bin: 'biz' })
       expect(Object.isFrozen(result)).to.be.true()
+    })
+  })
+  describe('integration', () => {
+    before(() => {
+      fixd.add('testObject', { foo: 'bar' })
+      fixd.add('testArray', [ 'foo', 'bar' ])
+    })
+    after(() => {
+      delete fixd.testObject
+      delete fixd.testArray
+    })
+    it('adds and retrieves multiple types', () => {
+      expect(fixd.testObject).to.be.an('object')
+      expect(fixd.testArray).to.be.an('array')
+    })
+    it('mutates and returns multiple types', () => {
+      expect(fixd.create('testObject', (obj) => { 
+        obj.foo = 'baz'
+        return obj
+      })).to.deep.equal({ foo: 'baz' })
+      expect(fixd.create('testArray', (arr) => {
+        arr[0] = 'fizz'
+        return arr
+      })).to.deep.equal([ 'fizz', 'bar' ])
+    })
+    it('throws an error if a mutation is attempted', () => {
+      expect(() => {
+        fixd.testObject.foo = 'baz'
+      }).to.throw(/Cannot assign to read only property/)
+      expect(() => {
+        fixd.testArray[0] = 'baz'
+      }).to.throw(/Cannot assign to read only property/)
     })
   })
 })

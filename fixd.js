@@ -7,13 +7,13 @@ const fixd = {
    * @param {*} obj The object to freeze
    * @returns {*}
    */
-  freeze: (obj) => {
+  freeze: (obj) =>  {
     Object.freeze(obj)
-    Object.getOwnPropertyNames(obj).forEach(function (prop) {
-      if (obj.hasOwnProperty(prop) &&
-      obj[prop] !== null &&
-      (typeof obj[prop] === 'object' || typeof obj[prop] === 'function') &&
-      !Object.isFrozen(obj[prop])) {
+    Object.getOwnPropertyNames(obj).forEach((prop) => {
+      if (obj.hasOwnProperty(prop)
+      && obj[prop] !== null
+      && (typeof obj[prop] === 'object' || typeof obj[prop] === 'function')
+      && !Object.isFrozen(obj[prop])) {
         fixd.freeze(obj[prop])
       }
     })
@@ -39,7 +39,7 @@ const fixd = {
     if (typeof modifier !== 'function') {
       throw new Error('Modifier must be a function')
     }
-    return fixd.freeze(modifier(merge({}, fixd[name])))
+    return fixd.freeze(modifier(merge(Array.isArray(fixd[name]) ? []: {}, fixd[name])))
   }
 }
 
