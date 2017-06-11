@@ -1,5 +1,5 @@
 'use strict'
-const merge = require('lodash.merge')
+const clone = require('lodash.clonedeep')
 
 const fixd = {
   /**
@@ -54,7 +54,7 @@ const fixd = {
     if (typeof modifier !== 'function') {
       throw new Error('Modifier must be a function')
     }
-    return fixd.freeze(modifier(merge(Array.isArray(fixd[name].$fixdVal) ? [] : {}, fixd[name].$fixdVal)))
+    return fixd.freeze(modifier(clone(fixd[name].$fixdVal)))
   }
 }
 

@@ -52,7 +52,6 @@
     ]
   },
   "dependencies": {
-    "halcyon": "^0.19.1",
-    "lodash.merge": "^4.6.0"
+    "lodash.clonedeep": "^4.5.0"
   }
 }
