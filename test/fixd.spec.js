@@ -8,6 +8,9 @@ const fixd = require('../fixd')
 
 describe('fixd', () => {
   describe('set', () => {
+    after(() => {
+      delete fixd.foo
+    })
     it('throws an error if attempting to assign to already reserved namespace', () => {
       expect(() => fixd.set(null, 'set', {})).to.throw(/Cannot add fixture to already reserved namespace 'set'/)
     })
@@ -18,6 +21,9 @@ describe('fixd', () => {
     })
   })
   describe('get', () => {
+    after(() => {
+      delete fixd.setTest
+    })
     it('returns target object if symbol is passed (root fixd object)', () => {
       expect(fixd.get(fixd, Symbol('getTest'))).to.be.an('object')
     })
@@ -32,6 +38,9 @@ describe('fixd', () => {
   describe('create', () => {
     before(() => {
       fixd.bar = { bin: 'baz' }
+    })
+    after(() => {
+      delete fixd.bar
     })
     it('throws an error if the modifier is not supplied', () => {
       expect(() => fixd.create('bar')).to.throw(/Modifier must be a function/)
@@ -49,13 +58,13 @@ describe('fixd', () => {
     })
   })
   describe('integration', () => {
-    before(() => {
+    beforeEach(() => {
       fixd.testObject = { foo: 'bar' }
       fixd.testArray = [ 'foo', 'bar' ]
       fixd.testString = 'foo'
       fixd.testNumber = 42
     })
-    after(() => {
+    afterEach(() => {
       delete fixd.testObject
       delete fixd.testArray
       delete fixd.testString
@@ -68,10 +77,11 @@ describe('fixd', () => {
       expect(fixd.testNumber).to.be.a('number')
     })
     it('removes references from deeply nested objects', () => {
+      delete fixd.testObject
       const ref = { fizz: 'buzz' }
       const obj = { foo: 'bar', ref }
-      fixd.testObj = obj
-      expect(fixd.testObj).to.not.equal(obj)
+      fixd.testObject = obj
+      expect(fixd.testObject).to.not.equal(obj)
     })
     it('mutates and returns multiple types', () => {
       expect(fixd.create('testObject', (obj) => {
