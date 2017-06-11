@@ -67,6 +67,12 @@ describe('fixd', () => {
       expect(fixd.testString).to.be.a('string')
       expect(fixd.testNumber).to.be.a('number')
     })
+    it('removes references from deeply nested objects', () => {
+      const ref = { fizz: 'buzz' }
+      const obj = { foo: 'bar', ref }
+      fixd.testObj = obj
+      expect(fixd.testObj).to.not.equal(obj)
+    })
     it('mutates and returns multiple types', () => {
       expect(fixd.create('testObject', (obj) => {
         obj.foo = 'baz'

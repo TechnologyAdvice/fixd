@@ -41,7 +41,7 @@ const fixd = {
     if (fixd[prop]) {
       throw new Error(`Cannot add fixture to already reserved namespace '${prop}'.`)
     }
-    fixd[prop] = fixd.freeze({ $fixdVal: value })
+    fixd[prop] = fixd.freeze({ $fixdVal: clone(value) })
     return true
   },
   /**
