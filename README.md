@@ -3,11 +3,11 @@
 
 # Fixd
 
-Fixd is a JavaScript library for creating reference-free, immutable/frozen objects. It supports immutability on all native types, including deeply nested objects and arrays.
+Fixd is a JavaScript library for creating reference-free, immutable (frozen) objects. It supports immutability on all native types, including deeply nested objects and arrays.
 
 ## Installation
 
-`npm i fixd --save-dev`
+`npm i fixd --save`
 
 ## Quick Start
 
@@ -30,7 +30,7 @@ fixd.foo // -> { fizz: 'buzz', baz: { quz: 'baz' } }
 foo.fizz = 'bazz' // -> ERROR: Cannot assign to read only property
 ```
 
-_Note: While `Object.freeze` will prevent modifications, `use strict` must be applied to the document in order to throw error on attempted mutation_
+_Note: While `Object.freeze` will prevent modifications, `use strict` must be applied to the document in order to throw error on attempted mutation._
 
 ## Creating New Instances
 
@@ -43,8 +43,16 @@ fixd.create('foo', (foo) => {
 }) // -> { fizz: 'bazz', baz: { quz: 'baz' } }
 ```
 
-The above will not modify the `foo` object, it will return a new, reference-free, frozen instance of the object.
+The above will not modify the `foo` object, it will return a new, reference-free, frozen instance of the object based on the modification performed in the function.
+
+## Development
+
+The prefered dependency manager for Fixd is [Yarn](https://yarnpkg.com). To run tests, execute the following after dependencies have been installed:
+
+```
+yarn test
+```
 
 ## License
 
-Fixd is developed and maintained by TechnologyAdvice and released under the ISC license
+Fixd is developed and maintained by [TechnologyAdvice](http://www.technologyadvice.com) and released under the ISC license.
