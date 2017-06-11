@@ -7,19 +7,31 @@ chai.use(dirtyChai)
 const fixd = require('../fixd')
 
 describe('fixd', () => {
-  describe('add', () => {
+  describe('set', () => {
     it('throws an error if attempting to assign to already reserved namespace', () => {
-      expect(() => fixd.add('add', {})).to.throw(/Cannot add fixture to already reserved namespace 'add'/)
+      expect(() => fixd.set(null, 'set', {})).to.throw(/Cannot add fixture to already reserved namespace 'set'/)
     })
     it('adds a frozen fixture to the library', () => {
-      fixd.add('foo', { fizz: 'buzz', baz: { quz: 'baz' } })
+      fixd.set(null, 'foo', { fizz: 'buzz', baz: { quz: 'baz' } })
       expect(fixd.foo).to.deep.equal({ fizz: 'buzz', baz: { quz: 'baz' } })
       expect(Object.isFrozen(fixd.foo)).to.be.true()
     })
   })
+  describe('get', () => {
+    it('returns target object if symbol is passed (root fixd object)', () => {
+      expect(fixd.get(fixd, Symbol('getTest'))).to.be.an('object')
+    })
+    it('returns fixd methods when specified', () => {
+      expect(fixd.get(fixd, 'set')).to.be.a('function')
+    })
+    it('returns the value of a stored object when specified', () => {
+      fixd.setTest = 'foo'
+      expect(fixd.get(fixd, 'setTest')).to.equal('foo')
+    })
+  })
   describe('create', () => {
     before(() => {
-      fixd.add('bar', { bin: 'baz' })
+      fixd.bar = { bin: 'baz' }
     })
     it('throws an error if the modifier is not supplied', () => {
       expect(() => fixd.create('bar')).to.throw(/Modifier must be a function/)
@@ -38,10 +50,10 @@ describe('fixd', () => {
   })
   describe('integration', () => {
     before(() => {
-      fixd.add('testObject', { foo: 'bar' })
-      fixd.add('testArray', [ 'foo', 'bar' ])
-      fixd.add('testString', 'foo')
-      fixd.add('testNumber', 42)
+      fixd.testObject = { foo: 'bar' }
+      fixd.testArray = [ 'foo', 'bar' ]
+      fixd.testString = 'foo'
+      fixd.testNumber = 42
     })
     after(() => {
       delete fixd.testObject
@@ -49,7 +61,7 @@ describe('fixd', () => {
       delete fixd.testString
       delete fixd.testNumber
     })
-    it('adds and retrieves multiple types', () => {
+    it('sets and gets multiple types', () => {
       expect(fixd.testObject).to.be.an('object')
       expect(fixd.testArray).to.be.an('array')
       expect(fixd.testString).to.be.a('string')
@@ -80,10 +92,10 @@ describe('fixd', () => {
       }).to.throw(/Cannot assign to read only property/)
       expect(() => {
         fixd.testString = 'bar'
-      }).to.throw(/Fixd properties are not extensible/)
+      }).to.throw(/Cannot add fixture to already reserved namespace/)
       expect(() => {
         fixd.testNumber = 43
-      }).to.throw(/Fixd properties are not extensible/)
+      }).to.throw(/Cannot add fixture to already reserved namespace/)
     })
     it('returns the fixd object when called', () => {
       expect(fixd).to.be.an('object')

@@ -20,20 +20,35 @@ const fixd = {
     return obj
   },
   /**
-   * Add a fixture to the fixd library and freezes if not in namespace
-   * @param {String} name A string name to represent the fixture
-   * @param {*} value The fixture value
+   * Retrieves a value from the fixd library
+   * @param {Object} target Target object to retrieve from
+   * @param {String} name Property name to retrieve
+   * @returns {*} The value of the property
    */
-  add: (name, val) => {
-    if (fixd[name]) {
-      throw new Error(`Cannot add fixture to already reserved namespace '${name}'.`)
+  get: (target, name) => {
+    if (typeof name === 'symbol') return target
+    if (['freeze', 'get', 'set', 'create'].indexOf(name) >= 0) return target[name]
+    return fixd[name].$fixdVal
+  },
+  /**
+   * Add a property to the fixd library and freezes if not in namespace
+   * @param {Object} obj The object to set
+   * @param {String} prop A string name to represent the fixture
+   * @param {*} value The value to set
+   * @returns {Boolean}
+   */
+  set: (obj, prop, value) => {
+    if (fixd[prop]) {
+      throw new Error(`Cannot add fixture to already reserved namespace '${prop}'.`)
     }
-    fixd[name] = fixd.freeze({ $fixdVal: val })
+    fixd[prop] = fixd.freeze({ $fixdVal: value })
+    return true
   },
   /**
    * Returns a fixture and allows for (option) modification
    * @param {String} name The namespace of the fixture to mutate
    * @param {Function} modifier A function to modify the fixture
+   * @returns {*} Unreferenced, immutable copy of object
    */
   create: (name, modifier) => {
     if (typeof modifier !== 'function') {
@@ -43,13 +58,4 @@ const fixd = {
   }
 }
 
-module.exports = new Proxy(fixd, {
-  get: function (target, name) {
-    if (typeof name === 'symbol') return target
-    if (['freeze', 'add', 'create'].indexOf(name) >= 0) return target[name]
-    return target[name].$fixdVal
-  },
-  set: (obj, prop) => {
-    throw new TypeError('Fixd properties are not extensible')
-  }
-})
+module.exports = new Proxy(fixd, fixd)

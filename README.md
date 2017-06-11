@@ -16,10 +16,10 @@ Fixd is a JavaScript library for creating reference-free, immutable/frozen objec
 const fixd = require('fixd')
 
 // Add a new fixture
-fixd.add('foo', { fizz: 'buzz', baz: { quz: 'baz' } })
+fixd.foo = { fizz: 'buzz', baz: { quz: 'baz' } }
 
 // Access fixture
-const foo = fixd.foo // -> { fizz: 'buzz', baz: { quz: 'baz' } }
+fixd.foo // -> { fizz: 'buzz', baz: { quz: 'baz' } }
 
 // Throws error
 foo.fizz = 'bazz' // -> ERROR: Cannot assign to read only property
@@ -38,7 +38,7 @@ fixd.create('foo', (foo) => {
 }) // -> { fizz: 'bazz', baz: { quz: 'baz' } }
 ```
 
-The above will not modify the `foo` object, instead will return a new, reference-free, frozen instance of the object.
+The above will not modify the `foo` object, it will return a new, reference-free, frozen instance of the object.
 
 ## License
 
