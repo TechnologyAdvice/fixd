@@ -15,17 +15,22 @@ Fixd is a JavaScript library for creating reference-free, immutable/frozen objec
 'use strict'
 const fixd = require('fixd')
 
-// Add a new fixture
-fixd.foo = { fizz: 'buzz', baz: { quz: 'baz' } }
+// Add a new object
+fixd.foo = { 
+  fizz: 'buzz', 
+  baz: { 
+    quz: 'baz' 
+  } 
+}
 
-// Access fixture
+// Access object
 fixd.foo // -> { fizz: 'buzz', baz: { quz: 'baz' } }
 
-// Throws error
+// Throws error, prevents mutations
 foo.fizz = 'bazz' // -> ERROR: Cannot assign to read only property
 ```
 
-_Note: While `Object.freeze` will prevent modifications, `use strict` must be applied to the document in order to throw error on attempted mutation`_
+_Note: While `Object.freeze` will prevent modifications, `use strict` must be applied to the document in order to throw error on attempted mutation_
 
 ## Creating New Instances
 
