@@ -18,6 +18,9 @@
     "url": "git+https://github.com/TechnologyAdvice/fixd.git"
   },
   "keywords": [
+    "object",
+    "freeze",
+    "immutable",
     "test",
     "fixture"
   ],
@@ -28,28 +31,20 @@
   },
   "homepage": "https://github.com/TechnologyAdvice/fixd#readme",
   "devDependencies": {
-    "chai": "^3.5.0",
+    "chai": "^4.0.2",
     "dirty-chai": "^1.2.2",
     "istanbul": "^0.4.5",
-    "mocha": "^3.3.0",
-    "sinon": "^2.2.0",
-    "sinon-chai": "^2.10.0",
+    "mocha": "^3.4.2",
     "standard": "^10.0.2"
   },
   "standard": {
     "ignore": [
       "coverage"
     ],
-    "globals": [
-      "describe",
-      "before",
-      "beforeEach",
-      "after",
-      "afterEach",
-      "it",
-      "expect",
-      "sandbox"
-    ]
+    "env": {
+      "node": true,
+      "mocha": true
+    }
   },
   "dependencies": {
     "lodash.clonedeep": "^4.5.0"
