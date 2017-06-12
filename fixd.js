@@ -10,7 +10,7 @@ const fixd = {
   freeze: (obj) => {
     Object.freeze(obj)
     /* istanbul ignore else */
-    if (obj !== null && obj !== undefined) {
+    if (obj) {
       Object.getOwnPropertyNames(obj).forEach((prop) => {
         if (obj.hasOwnProperty(prop) &&
         obj[prop] !== null &&
