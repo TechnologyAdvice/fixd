@@ -9,14 +9,16 @@ const fixd = {
    */
   freeze: (obj) => {
     Object.freeze(obj)
-    Object.getOwnPropertyNames(obj).forEach((prop) => {
-      if (obj.hasOwnProperty(prop) &&
-      obj[prop] !== null &&
-      (typeof obj[prop] === 'object' || typeof obj[prop] === 'function') &&
-      !Object.isFrozen(obj[prop])) {
-        fixd.freeze(obj[prop])
-      }
-    })
+    if (obj) {
+      Object.getOwnPropertyNames(obj).forEach((prop) => {
+        if (obj.hasOwnProperty(prop) &&
+        obj[prop] !== null &&
+        (typeof obj[prop] === 'object' || typeof obj[prop] === 'function') &&
+        !Object.isFrozen(obj[prop])) {
+          fixd.freeze(obj[prop])
+        }
+      })
+    }
     return obj
   },
   /**
