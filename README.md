@@ -30,7 +30,7 @@ fixd.foo // -> { fizz: 'buzz', baz: { quz: 'baz' } }
 foo.fizz = 'bazz' // -> ERROR: Cannot assign to read only property
 ```
 
-_Note: While `Object.freeze` will prevent modifications, `use strict` must be applied to the document in order to throw error on attempted mutation._
+_Note: While `Object.freeze` will prevent modifications, `use strict` must be applied to the document in order to throw an error on attempted mutation._
 
 ## Creating New Instances
 
@@ -43,7 +43,7 @@ fixd.create('foo', (foo) => {
 }) // -> { fizz: 'bazz', baz: { quz: 'baz' } }
 ```
 
-The above will not modify the `foo` object, it will return a new, reference-free, frozen instance of the object based on the modification performed in the function.
+The above will not modify the `foo` object, it will return a new, reference-free, frozen instance of the object based on the modification performed in the callback.
 
 ## Development
 

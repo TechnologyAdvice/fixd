@@ -27,7 +27,7 @@ const fixd = {
    */
   get: (target, name) => {
     if (typeof name === 'symbol') return target
-    if (['freeze', 'get', 'set', 'create'].indexOf(name) >= 0) return target[name]
+    if (['freeze', 'get', 'set', 'create'].includes(name)) return target[name]
     return fixd[name].$fixdVal
   },
   /**
