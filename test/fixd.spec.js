@@ -48,6 +48,9 @@ describe('fixd', () => {
     it('throws an error if attempting to pass a non-function modifier', () => {
       expect(() => fixd.create('bar', 'bin')).to.throw(/Modifier must be a function/)
     })
+    it('throws an error if modifier does not return anything', () => {
+      expect(() => fixd.create('bar', () => null)).to.throw(/Modifier should return a value/)
+    })
     it('creates an object and returns a frozen fixture', () => {
       const result = fixd.create('bar', (obj) => {
         obj.bin = 'biz'

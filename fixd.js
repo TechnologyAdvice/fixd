@@ -9,6 +9,7 @@ const fixd = {
    */
   freeze: (obj) => {
     Object.freeze(obj)
+    /* istanbul ignore else */
     if (obj) {
       Object.getOwnPropertyNames(obj).forEach((prop) => {
         if (obj.hasOwnProperty(prop) &&
@@ -56,7 +57,9 @@ const fixd = {
     if (typeof modifier !== 'function') {
       throw new Error('Modifier must be a function')
     }
-    return fixd.freeze(modifier(clone(fixd[name].$fixdVal)))
+    const newObj = modifier(clone(fixd[name].$fixdVal))
+    if (newObj) return fixd.freeze(newObj)
+    throw new Error('Modifier should return a value')
   }
 }
 
