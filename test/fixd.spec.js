@@ -45,6 +45,9 @@ describe('fixd', () => {
     it('throws an error if the modifier is not supplied', () => {
       expect(() => fixd.create('bar')).to.throw(/Modifier must be a function/)
     })
+    it('throws an error if the namespace does not exist', () => {
+      expect(() => fixd.create('nope', () => {})).to.throw(/Namespace 'nope' does not exist/)
+    })
     it('throws an error if attempting to pass a non-function modifier', () => {
       expect(() => fixd.create('bar', 'bin')).to.throw(/Modifier must be a function/)
     })

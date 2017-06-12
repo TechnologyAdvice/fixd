@@ -57,6 +57,9 @@ const fixd = {
     if (typeof modifier !== 'function') {
       throw new Error('Modifier must be a function')
     }
+    if (!fixd[name]) {
+      throw new Error(`Namespace '${name}' does not exist`)
+    }
     const newObj = modifier(clone(fixd[name].$fixdVal))
     if (newObj) return fixd.freeze(newObj)
     throw new Error('Modifier should return a value')
