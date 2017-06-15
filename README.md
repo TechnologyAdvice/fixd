@@ -5,6 +5,8 @@
 
 Fixd is a JavaScript library for creating reference-free, immutable (frozen) objects. It supports immutability on all native types, including deeply nested objects and arrays.
 
+The use-case Fixd was built around is "locking" reusable fixtures to prevent mutations, an in-turn, side-effects during testing.
+
 ## Installation
 
 `npm i fixd --save`
