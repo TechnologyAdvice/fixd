@@ -30,6 +30,9 @@ describe('fixd', () => {
     it('returns fixd methods when specified', () => {
       expect(fixd.get(fixd, 'set')).to.be.a('function')
     })
+    it('throws if namespace does not exist', () => {
+      expect(() => fixd.get(fixd, 'notANamespace')).to.throw(/Namespace 'notANamespace' does not exist/)
+    })
     it('returns the value of a stored object when specified', () => {
       fixd.setTest = 'foo'
       expect(fixd.get(fixd, 'setTest')).to.equal('foo')
