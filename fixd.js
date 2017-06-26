@@ -31,6 +31,7 @@ const fixd = {
   get: (target, name) => {
     if (typeof name === 'symbol') return target
     if (['freeze', 'get', 'set', 'create'].includes(name)) return target[name]
+    if (!fixd[name] || !fixd[name].$fixdVal) throw new Error(`Namespace '${name}' does not exist`)
     return fixd[name].$fixdVal
   },
   /**
