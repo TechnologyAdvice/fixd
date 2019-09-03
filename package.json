@@ -46,6 +46,7 @@
       "mocha": true
     }
   },
+  "types": "fixd.d.ts",
   "dependencies": {
     "lodash.clonedeep": "^4.5.0"
   }
